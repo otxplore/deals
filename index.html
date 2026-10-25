@@ -1,0 +1,1035 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#11120f">
+  <meta name="description" content="OTXS Travel Deals & Offers — organise travel promotions, stays, activities and adventure packages.">
+  <title>OTXS Travel Deals & Offers</title>
+  <style>
+    :root {
+      --bg:#11120f;
+      --panel:#1b1d18;
+      --panel2:#24261f;
+      --text:#f5f3eb;
+      --muted:#a5a798;
+      --orange:#ff9f32;
+      --yellow:#ffd166;
+      --border:#34362d;
+      --green:#9bd7a4;
+      --red:#ff8585;
+    }
+
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:Arial,Helvetica,sans-serif;
+      line-height:1.6;
+    }
+    a { color:var(--yellow); text-decoration:none; }
+    button,input,select,textarea { font:inherit; }
+    button,.btn {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:7px;
+      padding:10px 14px;
+      border:1px solid var(--border);
+      border-radius:10px;
+      background:var(--panel2);
+      color:var(--text);
+      cursor:pointer;
+      text-decoration:none;
+    }
+    button:hover,.btn:hover { border-color:var(--orange); }
+    button.primary,.btn.primary {
+      background:var(--orange);
+      color:#18150e;
+      border-color:var(--orange);
+      font-weight:700;
+    }
+    button.danger { color:var(--red); }
+
+    header {
+      position:sticky;
+      top:0;
+      z-index:10;
+      background:rgba(17,18,15,.96);
+      border-bottom:1px solid var(--border);
+    }
+    .nav {
+      max-width:1180px;
+      margin:auto;
+      padding:14px 20px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+    }
+    .brand {
+      color:var(--text);
+      font-size:1.35rem;
+      font-weight:900;
+      letter-spacing:1px;
+    }
+    .brand span { color:var(--orange); }
+    .nav-links {
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      gap:12px;
+    }
+    .nav-links a { color:var(--muted); font-size:.9rem; }
+    .nav-links a:hover { color:var(--yellow); }
+
+    main {
+      max-width:1180px;
+      margin:auto;
+      padding:28px 20px 55px;
+    }
+    .hero {
+      display:grid;
+      grid-template-columns:1.35fr 1fr;
+      gap:24px;
+      align-items:center;
+      padding:20px 0 30px;
+    }
+    .eyebrow {
+      color:var(--orange);
+      text-transform:uppercase;
+      font-size:.78rem;
+      letter-spacing:2px;
+      font-weight:800;
+    }
+    h1 {
+      font-size:clamp(2rem,5vw,3.4rem);
+      line-height:1.12;
+      margin:12px 0;
+    }
+    h1 span { color:var(--yellow); }
+    h2 { margin:0; font-size:1.4rem; }
+    h3 { margin:0 0 8px; }
+    .muted { color:var(--muted); }
+
+    .hero-card {
+      padding:24px;
+      border:1px solid var(--border);
+      border-radius:18px;
+      background:linear-gradient(140deg,#29271c,#1b1d18);
+    }
+    .hero-number {
+      color:var(--yellow);
+      font-size:2.3rem;
+      font-weight:800;
+    }
+    .stats {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+      margin-top:18px;
+    }
+    .stat { padding:12px; border-radius:10px; background:var(--panel2); }
+    .stat strong { display:block; font-size:1.3rem; }
+    .stat span { color:var(--muted); font-size:.8rem; }
+
+    .section-heading {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:12px;
+      margin:28px 0 14px;
+    }
+    .panel {
+      padding:20px;
+      margin-bottom:20px;
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:16px;
+    }
+    .form-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:14px;
+    }
+    .field { display:flex; flex-direction:column; gap:6px; }
+    .field.full { grid-column:1/-1; }
+    label { color:var(--muted); font-size:.9rem; }
+    input,select,textarea {
+      width:100%;
+      min-width:0;
+      padding:11px 12px;
+      color:var(--text);
+      background:#12130f;
+      border:1px solid var(--border);
+      border-radius:10px;
+    }
+    input:focus,select:focus,textarea:focus {
+      outline:none;
+      border-color:var(--orange);
+    }
+    textarea { min-height:95px; resize:vertical; }
+    .form-actions,.toolbar {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:16px;
+    }
+
+    .filters {
+      display:grid;
+      grid-template-columns:2fr 1fr 1fr;
+      gap:12px;
+      margin-bottom:18px;
+    }
+    .deal-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+    }
+    .deal-card {
+      display:flex;
+      flex-direction:column;
+      min-width:0;
+      padding:18px;
+      border:1px solid var(--border);
+      border-radius:16px;
+      background:var(--panel);
+    }
+    .deal-card:hover { border-color:#655b3c; }
+    .deal-top {
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:10px;
+    }
+    .deal-icon {
+      display:grid;
+      place-items:center;
+      width:46px;
+      height:46px;
+      flex-shrink:0;
+      border-radius:12px;
+      background:var(--panel2);
+      font-size:1.6rem;
+    }
+    .tag {
+      display:inline-block;
+      margin-bottom:8px;
+      padding:4px 9px;
+      border-radius:999px;
+      background:#37301e;
+      color:var(--yellow);
+      font-size:.75rem;
+    }
+    .deal-card h3 { overflow-wrap:anywhere; }
+    .deal-location,.deal-meta {
+      color:var(--muted);
+      font-size:.88rem;
+      margin:5px 0;
+      overflow-wrap:anywhere;
+    }
+    .deal-description {
+      white-space:pre-wrap;
+      overflow-wrap:anywhere;
+      color:#deded4;
+      font-size:.92rem;
+      margin:12px 0;
+    }
+    .price-row {
+      display:flex;
+      align-items:baseline;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:8px 0;
+    }
+    .deal-price { color:var(--yellow); font-size:1.5rem; font-weight:800; }
+    .old-price { color:var(--muted); text-decoration:line-through; }
+    .saving { color:var(--green); font-size:.83rem; }
+    .deal-actions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:7px;
+      margin-top:auto;
+      padding-top:15px;
+    }
+    .deal-actions button,.deal-actions a { font-size:.84rem; }
+    .empty {
+      grid-column:1/-1;
+      padding:40px 20px;
+      border:1px dashed var(--border);
+      border-radius:16px;
+      text-align:center;
+      color:var(--muted);
+    }
+    .status-active { color:var(--green); }
+    .status-expired { color:var(--red); }
+    .notice {
+      padding:14px 16px;
+      margin-top:20px;
+      border:1px solid #65502b;
+      border-radius:12px;
+      background:#242015;
+      color:#e9d9b5;
+      font-size:.9rem;
+    }
+    .notice.warning {
+      border-color:#6a3838;
+      background:#281919;
+      color:#ffd0c8;
+    }
+    footer {
+      padding:24px 16px;
+      border-top:1px solid var(--border);
+      color:var(--muted);
+      text-align:center;
+      font-size:.88rem;
+    }
+    #toast {
+      position:fixed;
+      display:none;
+      right:20px;
+      bottom:20px;
+      z-index:50;
+      max-width:calc(100% - 40px);
+      padding:12px 16px;
+      border-radius:10px;
+      background:var(--yellow);
+      color:#19160d;
+      font-weight:700;
+    }
+    .hidden { display:none!important; }
+
+    @media(max-width:950px) {
+      .hero { grid-template-columns:1fr; }
+      .deal-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    }
+    @media(max-width:600px) {
+      .nav { flex-direction:column; align-items:flex-start; }
+      main { padding:20px 14px 40px; }
+      .form-grid,.filters,.deal-grid { grid-template-columns:1fr; }
+      .field.full { grid-column:auto; }
+      .panel,.deal-card { padding:15px; }
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <nav class="nav">
+    <a class="brand" href="https://home.otxs.de">OTX<span>S</span></a>
+    <div class="nav-links">
+      <a href="https://home.otxs.de">Home</a>
+      <a href="https://trave.otxs.de">Travel</a>
+      <a href="https://adventure.otxs.de">Adventure</a>
+      <a href="https://stays.otxs.de">Stays</a>
+      <a href="https://ride-companion.otxs.de">Ride Companion</a>
+      <select id="appNav" aria-label="Explore OTXS apps" style="width:auto;max-width:180px">
+        <option value="">Explore apps…</option>
+        <option value="https://apps.otxs.de">All apps</option>
+        <option value="https://planner.otxs.de">Trip Planner</option>
+        <option value="https://local.otxs.de">Local Guide</option>
+        <option value="https://camping.otxs.de">Campsite Finder</option>
+        <option value="https://trip-cost.otxs.de">Trip Cost Calculator</option>
+        <option value="https://budget.otxs.de">Travel Budget</option>
+      </select>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <div>
+      <div class="eyebrow">OTXS · Travel Deals & Offers</div>
+      <h1>Travel more.<br><span>Spend smarter.</span></h1>
+      <p class="muted">
+        Collect accommodation offers, adventure packages, transport discounts
+        and seasonal promotions. Keep useful links and expiry dates together
+        so you can compare offers before booking.
+      </p>
+      <a class="btn primary" href="#add-deal">＋ Add an offer</a>
+    </div>
+
+    <div class="hero-card">
+      <div class="eyebrow">Your offer collection</div>
+      <div class="hero-number" id="heroCount">0 offers</div>
+      <span class="muted">A simple workspace for travel deals you find online or locally.</span>
+      <div class="stats">
+        <div class="stat"><strong id="activeCount">0</strong><span>Not expired</span></div>
+        <div class="stat"><strong id="favouriteCount">0</strong><span>Favourites</span></div>
+        <div class="stat"><strong id="expiredCount">0</strong><span>Expired</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="add-deal">
+    <div class="section-heading" style="margin-top:0">
+      <h2 id="formHeading">Add a travel offer</h2>
+      <span class="muted">Enter details from a source you trust</span>
+    </div>
+
+    <form id="dealForm">
+      <input type="hidden" id="dealId">
+
+      <div class="form-grid">
+        <div class="field">
+          <label for="dealTitle">Offer title *</label>
+          <input id="dealTitle" required maxlength="140"
+                 placeholder="e.g. Weekend stay package">
+        </div>
+
+        <div class="field">
+          <label for="dealCategory">Category *</label>
+          <select id="dealCategory" required>
+            <option value="Accommodation">Accommodation</option>
+            <option value="Adventure">Adventure activities</option>
+            <option value="Transport">Transport</option>
+            <option value="Tour Package">Tour package</option>
+            <option value="Food & Dining">Food & dining</option>
+            <option value="Equipment Rental">Equipment rental</option>
+            <option value="Camping">Camping</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="dealProvider">Provider / business</label>
+          <input id="dealProvider" maxlength="120"
+                 placeholder="Hotel, operator, booking site…">
+        </div>
+
+        <div class="field">
+          <label for="dealLocation">Location / region</label>
+          <input id="dealLocation" maxlength="160"
+                 placeholder="e.g. Solan, Himachal Pradesh">
+        </div>
+
+        <div class="field">
+          <label for="dealPrice">Offer price</label>
+          <input id="dealPrice" type="number" min="0" step="0.01"
+                 placeholder="e.g. 1499">
+        </div>
+
+        <div class="field">
+          <label for="dealCurrency">Currency</label>
+          <select id="dealCurrency">
+            <option value="INR">INR (₹)</option>
+            <option value="USD">USD ($)</option>
+            <option value="EUR">EUR (€)</option>
+            <option value="GBP">GBP (£)</option>
+            <option value="NPR">NPR</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="dealOriginalPrice">Original price (optional)</label>
+          <input id="dealOriginalPrice" type="number" min="0" step="0.01"
+                 placeholder="Price before discount">
+        </div>
+
+        <div class="field">
+          <label for="dealCode">Promo code</label>
+          <input id="dealCode" maxlength="80" placeholder="Optional coupon code">
+        </div>
+
+        <div class="field">
+          <label for="dealStart">Offer starts</label>
+          <input id="dealStart" type="date">
+        </div>
+
+        <div class="field">
+          <label for="dealExpiry">Expiry date</label>
+          <input id="dealExpiry" type="date">
+        </div>
+
+        <div class="field">
+          <label for="dealUrl">Offer / booking link</label>
+          <input id="dealUrl" type="url" maxlength="500"
+                 placeholder="https://example.com/offer">
+        </div>
+
+        <div class="field">
+          <label for="dealStatus">Your status</label>
+          <select id="dealStatus">
+            <option value="Considering">Considering</option>
+            <option value="Shortlisted">Shortlisted</option>
+            <option value="Booked">Booked</option>
+            <option value="Used">Used</option>
+            <option value="Not interested">Not interested</option>
+          </select>
+        </div>
+
+        <div class="field full">
+          <label for="dealDescription">Offer details and terms</label>
+          <textarea id="dealDescription" maxlength="2500"
+            placeholder="What's included, blackout dates, cancellation policy, booking conditions, source notes…"></textarea>
+        </div>
+
+        <div class="field full">
+          <label>
+            <input type="checkbox" id="dealFavourite" style="width:auto">
+            Mark as favourite
+          </label>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="primary" type="submit" id="saveButton">Save offer</button>
+        <button type="button" id="cancelEdit" class="hidden">Cancel edit</button>
+        <button type="reset" id="clearForm">Clear form</button>
+      </div>
+    </form>
+  </section>
+
+  <section>
+    <div class="section-heading">
+      <h2>Your saved offers</h2>
+      <div class="toolbar" style="margin:0">
+        <button id="exportButton">Export JSON</button>
+        <button id="importButton">Import JSON</button>
+        <input id="importFile" type="file" accept=".json,application/json" hidden>
+      </div>
+    </div>
+
+    <div class="filters">
+      <input id="searchInput" type="search"
+             placeholder="Search offers, providers or locations…"
+             aria-label="Search offers">
+
+      <select id="categoryFilter" aria-label="Filter by category">
+        <option value="">All categories</option>
+        <option value="Accommodation">Accommodation</option>
+        <option value="Adventure">Adventure activities</option>
+        <option value="Transport">Transport</option>
+        <option value="Tour Package">Tour package</option>
+        <option value="Food & Dining">Food & dining</option>
+        <option value="Equipment Rental">Equipment rental</option>
+        <option value="Camping">Camping</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <select id="viewFilter" aria-label="Filter offers">
+        <option value="all">All offers</option>
+        <option value="valid">Not expired</option>
+        <option value="expired">Expired</option>
+        <option value="favourites">Favourites</option>
+        <option value="Booked">Booked</option>
+        <option value="Used">Used</option>
+      </select>
+    </div>
+
+    <div class="deal-grid" id="dealGrid"></div>
+  </section>
+
+  <div class="notice warning">
+    <strong>Verify before you pay:</strong> This is a personal offer organiser,
+    not a live deals aggregator or booking service. Prices, discounts, availability
+    and expiry dates are not automatically checked. Confirm all terms directly
+    with the provider and use secure, official payment channels.
+  </div>
+
+  <div class="notice">
+    <strong>Your data stays in this browser:</strong> Offers are stored locally
+    on this device. They are not published to other visitors or synchronised
+    across devices. Export a JSON backup if you want to transfer your records.
+  </div>
+</main>
+
+<footer>
+  <strong>OTXS</strong> · Discover and Explore<br>
+  <a href="https://otxs.de">OTXS Home</a> ·
+  <a href="https://apps.otxs.de">Explore all apps</a><br>
+  © <span id="year"></span> OTXS
+</footer>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+
+const STORAGE_KEY = "otxs_travel_deals_v1";
+const $ = id => document.getElementById(id);
+
+const categories = {
+  "Accommodation": "🏨",
+  "Adventure": "🧗",
+  "Transport": "🚌",
+  "Tour Package": "🗺️",
+  "Food & Dining": "🍽️",
+  "Equipment Rental": "🎒",
+  "Camping": "🏕️",
+  "Other": "🎁"
+};
+
+const statuses = [
+  "Considering", "Shortlisted", "Booked", "Used", "Not interested"
+];
+
+let deals = loadDeals();
+let toastTimer;
+
+function makeId() {
+  return window.crypto && crypto.randomUUID
+    ? crypto.randomUUID()
+    : Date.now().toString(36) + Math.random().toString(36).slice(2);
+}
+
+function loadDeals() {
+  try {
+    const value = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    return Array.isArray(value)
+      ? value.filter(d => d && typeof d === "object" && d.id && d.title)
+      : [];
+  } catch (error) {
+    console.error("Could not load offers", error);
+    return [];
+  }
+}
+
+function saveDeals() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(deals));
+    return true;
+  } catch (error) {
+    showToast("Unable to save. Browser storage may be full or unavailable.");
+    console.error(error);
+    return false;
+  }
+}
+
+function showToast(message) {
+  $("toast").textContent = message;
+  $("toast").style.display = "block";
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => $("toast").style.display = "none", 3000);
+}
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  })[char]);
+}
+
+function safeHttpUrl(value) {
+  if (!value) return "";
+  try {
+    const url = new URL(value);
+    return ["http:", "https:"].includes(url.protocol) ? url.href : "";
+  } catch (_) {
+    return "";
+  }
+}
+
+function isExpired(deal) {
+  if (!deal.expiry) return false;
+  return deal.expiry < new Date().toISOString().slice(0, 10);
+}
+
+function formatMoney(value, currency) {
+  if (value === "" || value === null || value === undefined ||
+      !Number.isFinite(Number(value))) return "";
+
+  const amount = Number(value);
+  const known = ["INR", "USD", "EUR", "GBP", "NPR"];
+
+  if (known.includes(currency)) {
+    try {
+      return new Intl.NumberFormat("en-IN", {
+        style: "currency",
+        currency,
+        maximumFractionDigits: 2
+      }).format(amount);
+    } catch (_) {}
+  }
+
+  return `${currency || ""} ${amount.toLocaleString("en-IN")}`.trim();
+}
+
+function calculateSaving(deal) {
+  const price = Number(deal.price);
+  const original = Number(deal.originalPrice);
+  if (deal.price === "" || deal.originalPrice === "" ||
+      !Number.isFinite(price) || !Number.isFinite(original) ||
+      original <= 0 || price < 0 || price >= original) return null;
+
+  return Math.round((original - price) / original * 100);
+}
+
+function renderStats() {
+  const total = deals.length;
+  const expired = deals.filter(isExpired).length;
+  const favourites = deals.filter(d => d.favourite).length;
+
+  $("heroCount").textContent = `${total} ${total === 1 ? "offer" : "offers"}`;
+  $("activeCount").textContent = total - expired;
+  $("favouriteCount").textContent = favourites;
+  $("expiredCount").textContent = expired;
+}
+
+function getFilteredDeals() {
+  const query = $("searchInput").value.trim().toLowerCase();
+  const category = $("categoryFilter").value;
+  const view = $("viewFilter").value;
+
+  return deals.filter(deal => {
+    const searchable = [
+      deal.title, deal.category, deal.provider, deal.location,
+      deal.code, deal.description, deal.currency, deal.status
+    ].join(" ").toLowerCase();
+
+    if (query && !searchable.includes(query)) return false;
+    if (category && deal.category !== category) return false;
+    if (view === "valid" && isExpired(deal)) return false;
+    if (view === "expired" && !isExpired(deal)) return false;
+    if (view === "favourites" && !deal.favourite) return false;
+    if (view === "Booked" && deal.status !== "Booked") return false;
+    if (view === "Used" && deal.status !== "Used") return false;
+
+    return true;
+  }).sort((a, b) => {
+    if (a.favourite !== b.favourite) return Number(b.favourite) - Number(a.favourite);
+    return new Date(b.updatedAt || b.createdAt || 0) -
+           new Date(a.updatedAt || a.createdAt || 0);
+  });
+}
+
+function renderDeals() {
+  renderStats();
+
+  const grid = $("dealGrid");
+  const results = getFilteredDeals();
+
+  if (!results.length) {
+    grid.innerHTML = `
+      <div class="empty">
+        <div style="font-size:2.2rem">🎁</div>
+        <h3>No offers found</h3>
+        <p>Try another filter or add your first travel offer.</p>
+      </div>`;
+    return;
+  }
+
+  grid.innerHTML = results.map(deal => {
+    const category = Object.hasOwn(categories, deal.category)
+      ? deal.category : "Other";
+    const icon = categories[category];
+    const expired = isExpired(deal);
+    const link = safeHttpUrl(deal.url);
+    const saving = calculateSaving(deal);
+    const currency = deal.currency || "INR";
+    const price = formatMoney(deal.price, currency);
+    const originalPrice = formatMoney(deal.originalPrice, currency);
+
+    return `
+      <article class="deal-card">
+        <div class="deal-top">
+          <div>
+            <span class="tag">${escapeHTML(category)}</span>
+            <h3>${escapeHTML(deal.title)}</h3>
+          </div>
+          <div class="deal-icon" aria-hidden="true">${icon}</div>
+        </div>
+
+        ${deal.provider ? `<div class="deal-meta">🏢 ${escapeHTML(deal.provider)}</div>` : ""}
+        ${deal.location ? `<div class="deal-location">📍 ${escapeHTML(deal.location)}</div>` : ""}
+
+        ${(price || originalPrice) ? `
+          <div class="price-row">
+            ${price ? `<span class="deal-price">${escapeHTML(price)}</span>` : ""}
+            ${originalPrice && saving !== null ? `<span class="old-price">${escapeHTML(originalPrice)}</span>` : ""}
+          </div>` : ""}
+
+        ${saving !== null ? `<div class="saving">About ${saving}% off (based on entered prices)</div>` : ""}
+
+        ${deal.code ? `<div class="deal-meta">Promo code: <strong>${escapeHTML(deal.code)}</strong></div>` : ""}
+        ${deal.start ? `<div class="deal-meta">Starts: ${escapeHTML(deal.start)}</div>` : ""}
+        ${deal.expiry ? `<div class="deal-meta">Expires: ${escapeHTML(deal.expiry)}</div>` : ""}
+        <div class="deal-meta ${expired ? "status-expired" : "status-active"}">
+          ${expired ? "Expired — verify before use" : "Not marked expired"}
+        </div>
+        <div class="deal-meta">Your status: ${escapeHTML(deal.status || "Considering")}</div>
+        ${deal.favourite ? `<div class="saving">★ Favourite</div>` : ""}
+
+        ${deal.description ? `<div class="deal-description">${escapeHTML(deal.description)}</div>` : ""}
+
+        <div class="deal-actions">
+          ${link ? `<a class="btn" href="${escapeHTML(link)}" target="_blank" rel="noopener noreferrer">Open offer ↗</a>` : ""}
+          ${deal.code ? `<button type="button" data-action="copy" data-id="${escapeHTML(deal.id)}">Copy code</button>` : ""}
+          <button type="button" data-action="favourite" data-id="${escapeHTML(deal.id)}">${deal.favourite ? "★ Saved" : "☆ Favourite"}</button>
+          <button type="button" data-action="edit" data-id="${escapeHTML(deal.id)}">Edit</button>
+          <button type="button" class="danger" data-action="delete" data-id="${escapeHTML(deal.id)}">Delete</button>
+        </div>
+      </article>`;
+  }).join("");
+}
+
+function resetForm() {
+  $("dealForm").reset();
+  $("dealId").value = "";
+  $("formHeading").textContent = "Add a travel offer";
+  $("saveButton").textContent = "Save offer";
+  $("cancelEdit").classList.add("hidden");
+}
+
+function editDeal(id) {
+  const deal = deals.find(d => d.id === id);
+  if (!deal) return;
+
+  $("dealId").value = deal.id;
+  $("dealTitle").value = deal.title || "";
+  $("dealCategory").value = Object.hasOwn(categories, deal.category) ? deal.category : "Other";
+  $("dealProvider").value = deal.provider || "";
+  $("dealLocation").value = deal.location || "";
+  $("dealPrice").value = deal.price ?? "";
+  $("dealCurrency").value = deal.currency || "INR";
+  $("dealOriginalPrice").value = deal.originalPrice ?? "";
+  $("dealCode").value = deal.code || "";
+  $("dealStart").value = deal.start || "";
+  $("dealExpiry").value = deal.expiry || "";
+  $("dealUrl").value = deal.url || "";
+  $("dealStatus").value = statuses.includes(deal.status) ? deal.status : "Considering";
+  $("dealDescription").value = deal.description || "";
+  $("dealFavourite").checked = Boolean(deal.favourite);
+
+  $("formHeading").textContent = "Edit travel offer";
+  $("saveButton").textContent = "Update offer";
+  $("cancelEdit").classList.remove("hidden");
+
+  $("add-deal").scrollIntoView({ behavior:"smooth", block:"start" });
+  $("dealTitle").focus();
+}
+
+function deleteDeal(id) {
+  const deal = deals.find(d => d.id === id);
+  if (!deal) return;
+  if (!confirm(`Delete "${deal.title}"?`)) return;
+
+  deals = deals.filter(d => d.id !== id);
+  if (saveDeals()) {
+    renderDeals();
+    showToast("Offer deleted.");
+  }
+}
+
+$("dealForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const title = $("dealTitle").value.trim();
+  const urlInput = $("dealUrl").value.trim();
+  const start = $("dealStart").value;
+  const expiry = $("dealExpiry").value;
+
+  if (!title) {
+    showToast("Please enter an offer title.");
+    return;
+  }
+
+  if (start && expiry && expiry < start) {
+    showToast("Expiry date cannot be earlier than the start date.");
+    $("dealExpiry").focus();
+    return;
+  }
+
+  let url = "";
+  if (urlInput) {
+    url = safeHttpUrl(urlInput);
+    if (!url) {
+      showToast("Enter a valid link beginning with http:// or https://.");
+      $("dealUrl").focus();
+      return;
+    }
+  }
+
+  const priceRaw = $("dealPrice").value;
+  const originalRaw = $("dealOriginalPrice").value;
+
+  if ((priceRaw !== "" && Number(priceRaw) < 0) ||
+      (originalRaw !== "" && Number(originalRaw) < 0)) {
+    showToast("Prices cannot be negative.");
+    return;
+  }
+
+  const id = $("dealId").value;
+  const existing = deals.find(d => d.id === id);
+
+  const deal = {
+    id: id || makeId(),
+    title,
+    category: Object.hasOwn(categories, $("dealCategory").value)
+      ? $("dealCategory").value : "Other",
+    provider: $("dealProvider").value.trim(),
+    location: $("dealLocation").value.trim(),
+    price: priceRaw,
+    currency: $("dealCurrency").value,
+    originalPrice: originalRaw,
+    code: $("dealCode").value.trim(),
+    start,
+    expiry,
+    url,
+    status: statuses.includes($("dealStatus").value)
+      ? $("dealStatus").value : "Considering",
+    description: $("dealDescription").value.trim(),
+    favourite: $("dealFavourite").checked,
+    createdAt: existing?.createdAt || new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  };
+
+  if (existing) {
+    deals = deals.map(d => d.id === id ? deal : d);
+  } else {
+    deals.push(deal);
+  }
+
+  if (saveDeals()) {
+    renderDeals();
+    resetForm();
+    showToast(existing ? "Offer updated." : "Offer saved.");
+  }
+});
+
+$("cancelEdit").addEventListener("click", resetForm);
+$("clearForm").addEventListener("click", () => setTimeout(resetForm, 0));
+
+$("dealGrid").addEventListener("click", async event => {
+  const button = event.target.closest("button[data-action]");
+  if (!button) return;
+
+  const id = button.dataset.id;
+  const action = button.dataset.action;
+  const deal = deals.find(d => d.id === id);
+  if (!deal) return;
+
+  if (action === "edit") {
+    editDeal(id);
+  } else if (action === "delete") {
+    deleteDeal(id);
+  } else if (action === "favourite") {
+    deal.favourite = !deal.favourite;
+    deal.updatedAt = new Date().toISOString();
+    if (saveDeals()) renderDeals();
+  } else if (action === "copy") {
+    if (!deal.code) return;
+
+    try {
+      await navigator.clipboard.writeText(deal.code);
+      showToast("Promo code copied.");
+    } catch (_) {
+      window.prompt("Copy this promo code:", deal.code);
+    }
+  }
+});
+
+["searchInput", "categoryFilter", "viewFilter"].forEach(id => {
+  $(id).addEventListener(id === "searchInput" ? "input" : "change", renderDeals);
+});
+
+$("appNav").addEventListener("change", event => {
+  if (event.target.value) window.location.href = event.target.value;
+});
+
+$("exportButton").addEventListener("click", () => {
+  const backup = {
+    app:"OTXS Travel Deals & Offers",
+    version:1,
+    exportedAt:new Date().toISOString(),
+    deals
+  };
+
+  const blob = new Blob([JSON.stringify(backup, null, 2)], {
+    type:"application/json"
+  });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "otxs-travel-deals-backup.json";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+  showToast("Backup exported.");
+});
+
+$("importButton").addEventListener("click", () => $("importFile").click());
+
+$("importFile").addEventListener("change", async event => {
+  const file = event.target.files && event.target.files[0];
+  if (!file) return;
+
+  try {
+    const parsed = JSON.parse(await file.text());
+    const incoming = Array.isArray(parsed) ? parsed : parsed.deals;
+
+    if (!Array.isArray(incoming)) {
+      throw new Error("No offer list was found in this JSON file.");
+    }
+
+    const cleaned = incoming
+      .filter(d => d && typeof d === "object" &&
+        typeof d.title === "string" && d.title.trim())
+      .map(d => ({
+        id:String(d.id || makeId()),
+        title:d.title.trim().slice(0,140),
+        category:Object.hasOwn(categories,d.category) ? d.category : "Other",
+        provider:String(d.provider || "").slice(0,120),
+        location:String(d.location || "").slice(0,160),
+        price:d.price === "" || d.price == null ? "" :
+          (Number.isFinite(Number(d.price)) && Number(d.price) >= 0 ? String(d.price) : ""),
+        currency:["INR","USD","EUR","GBP","NPR","Other"].includes(d.currency) ? d.currency : "INR",
+        originalPrice:d.originalPrice === "" || d.originalPrice == null ? "" :
+          (Number.isFinite(Number(d.originalPrice)) && Number(d.originalPrice) >= 0 ? String(d.originalPrice) : ""),
+        code:String(d.code || "").slice(0,80),
+        start:/^\d{4}-\d{2}-\d{2}$/.test(d.start || "") ? d.start : "",
+        expiry:/^\d{4}-\d{2}-\d{2}$/.test(d.expiry || "") ? d.expiry : "",
+        url:safeHttpUrl(String(d.url || "")),
+        status:statuses.includes(d.status) ? d.status : "Considering",
+        description:String(d.description || "").slice(0,2500),
+        favourite:Boolean(d.favourite),
+        createdAt:d.createdAt || new Date().toISOString(),
+        updatedAt:new Date().toISOString()
+      }));
+
+    if (!cleaned.length) throw new Error("No valid offers were found.");
+
+    const replace = confirm(
+      `Found ${cleaned.length} offer(s).\n\n` +
+      "Choose OK to replace your current offers.\n" +
+      "Choose Cancel to merge imported offers."
+    );
+
+    if (replace) {
+      deals = cleaned;
+    } else {
+      const ids = new Set(deals.map(d => d.id));
+      const merged = cleaned.map(d => {
+        if (ids.has(d.id)) d.id = makeId();
+        ids.add(d.id);
+        return d;
+      });
+      deals = deals.concat(merged);
+    }
+
+    if (saveDeals()) {
+      renderDeals();
+      showToast("Offers imported.");
+    }
+  } catch (error) {
+    alert("Import failed: " + error.message);
+  } finally {
+    event.target.value = "";
+  }
+});
+
+$("year").textContent = new Date().getFullYear();
+renderDeals();
+</script>
+</body>
+</html>
+
